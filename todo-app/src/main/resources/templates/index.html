@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Todo all</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <script type="text/javascript" th:src="@{/js/main.js}"></script>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/all}">Todo list</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/archived}">Archived</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div class="row content">
+                <div class="col-sm-2 sidenav"></div>
+                <div class="col-sm-8 text-left">
+                    <h1 class="my-4">Todo</h1>
+                    <div th:if="${not #lists.isEmpty(todos.content)}">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Content</th>
+                                <th width="20%">Created</th>
+                                <th width="5%"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="todo : ${todos.content}">
+                                <td th:text="${todo.getContent()}"></td>
+                                <td th:text="${todo.getCreated()}"></td>
+                                <td>
+                                    <a th:href="@{/markArchived/{id}/{archived}(id=${todo.getId()}, archived=${todo.isArchived()})}">
+                                        <i th:if="${!todo.isArchived()}" class="material-icons">archive</i>
+                                        <i th:if="${todo.isArchived()}" class="material-icons">unarchive</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center" th:if="${#lists.isEmpty(todos.content)}">
+                        No content
+                    </div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#todoModal">
+                        Add Todo
+                    </button>
+
+                    <div class="modal fade" id="todoModal" tabindex="-1" role="dialog" aria-labelledby="todoModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="todoModalLabel">Add Todo</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    TODO
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
