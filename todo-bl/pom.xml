@@ -17,7 +17,7 @@
             <artifactId>todo-model</artifactId>
         </dependency>
 
-        <!--database-->
+        <!-- database -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>

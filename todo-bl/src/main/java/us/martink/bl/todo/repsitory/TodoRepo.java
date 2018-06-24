@@ -10,8 +10,6 @@ import us.martink.model.todo.TodoItem;
  * Created by tadas.
  */
 public interface TodoRepo extends JpaRepository<TodoItem, Long> {
-
     Page<TodoItemView> findAllBySearch(TodoItemSearch search);
-
     void markArchived(Long id, Boolean archived);
 }

@@ -17,7 +17,7 @@
             <artifactId>todo-bl</artifactId>
         </dependency>
 
-        <!--SPRING-->
+        <!-- spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>

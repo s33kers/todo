@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,7 +52,7 @@ public class TodoRepoImpl extends SimpleJpaRepository<TodoItem, Long> implements
         criteria.orderBy(criteriaBuilder.desc(root.get(TodoItem_.created)));
 
         TypedQuery<TodoItemView> typedQuery = em.createQuery(criteria);
-//FIXME        typedQuery.setFirstResult(todoItemSearch.getActivePage() * todoItemSearch.getPageSize());
+        typedQuery.setFirstResult(todoItemSearch.getActivePage() * todoItemSearch.getPageSize() - todoItemSearch.getPageSize());
         typedQuery.setMaxResults(todoItemSearch.getPageSize());
 
         PageRequest pageRequest = PageRequest.of(todoItemSearch.getActivePage(), todoItemSearch.getPageSize());

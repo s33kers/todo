@@ -10,4 +10,5 @@ import us.martink.bl.todo.model.TodoItemView;
 public interface TodoService {
     Page<TodoItemView> findAllBySearch(TodoItemSearch search);
     void markArchived(Long id, Boolean archived);
+    void addTodo(String todoText);
 }
